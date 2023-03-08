@@ -1,0 +1,33 @@
+#pokemon_info{
+    background-color: peachpuff;
+    color:white; 
+
+
+}
+
+body{
+    background-color: antiquewhite;
+    
+
+
+}
+
+#lab{
+    background-image: "../images/Oaks_Lab.jpg"; 
+    height: 100%;
+    width: 100%;
+    display:inline; 
+}
+
+#pokeballs{
+    background-color: white;
+    height:200px;
+    width: 200px; 
+    padding: 0px;
+    float: left;
+}
+
+h1{
+    background-color: peachpuff;
+    color: white;
+}
