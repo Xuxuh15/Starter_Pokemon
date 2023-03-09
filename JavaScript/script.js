@@ -10,6 +10,14 @@ const textBox = document.getElementById('pokemon_info');
 textBox.hidden = true;  
 const homeScreen = document.getElementById('starter_box'); 
 
+let yes_button = document.getElementById('yes');
+let no_button = document.getElementById('no');
+
+yes_button.hidden = true;
+no_button.hidden = true; 
+
+let currentChoice;
+
 
 
 
@@ -48,11 +56,75 @@ const closePokeball = (e)=>{
     }
 }
 
-bulbasuar.onmouseover = openPokeball; 
+const choose_prompt = (e)=>{
+
+    let name; 
+    currentChoice = e.target.id; 
+    if(currentChoice === 'grass'){
+        name = 'Bulbasuar';
+    }
+    else if(currentChoice === 'fire'){
+        name = 'Charmander'; 
+    }
+    else{
+        name = 'Squirtle'; 
+    }
+    textBox.innerHTML = `Are you sure you want to choose ${name}?`; 
+    yes_button.hidden = false;
+    no_button.hidden = false; 
+    e.target.removeEventListener('mouseleave',closePokeball); 
+
+    
+}
+
+const handleClick = (e)=>{
+    if(e.target.innerHTML === 'Yes'){
+        yes_button.hidden = true; 
+        no_button.hidden = true;
+        if(currentChoice === 'grass' ){
+            bulbasuar.src = '../images/bulbasuar.jpg';
+            charmander.hidden = true; 
+            squirtle.hidden = true;
+            textBox.innerHTML = 'Congragulations with your Bulbasuar!'; 
+        }
+        else if(currentChoice === 'fire'){
+            charmander.src = '../images/charmander.jpg';
+            bulbasuar.hidden = true;
+            squirtle.hidden = true; 
+            textBox.innerHTML = 'Congragulations with your Charmander!'; 
+        }
+        else{
+            squirtle.src = '../images/squirtle.jpg';
+            bulbasuar.hidden = true;
+            charmander.hidden = true; 
+            textBox.innerHTML = 'Congragulations with your Squirtle!';
+        }
+    }
+    else{
+        yes_button.hidden = true; 
+        no_button.hidden = true;
+        e.target.addEventListener('mouseleave',closePokeball);  
+        currentChoice = "";
+        
+    }
+
+
+    
+}
+
+
+
+bulbasuar.onmouseover = openPokeball;
+bulbasuar.addEventListener('mouseleave',closePokeball); 
+bulbasuar.onclick = choose_prompt; 
 charmander.onmouseover = openPokeball; 
+charmander.addEventListener('mouseleave',closePokeball);
+charmander.onclick = choose_prompt;
 squirtle.onmouseover = openPokeball; 
-bulbasuar.onmouseleave = closePokeball; 
-charmander.onmouseleave = closePokeball;
-squirtle.onmouseleave = closePokeball; 
+squirtle.addEventListener('mouseleave',closePokeball); 
+squirtle.onclick = choose_prompt; 
+yes_button.onclick = handleClick;
+no_button.onclick = handleClick;
+
 
 
