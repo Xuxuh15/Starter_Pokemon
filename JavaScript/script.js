@@ -2,9 +2,10 @@ let bulbasuar = document.getElementById('grass');
 let charmander = document.getElementById('fire');
 let squirtle = document.getElementById('water'); 
 
-const grass_path = '../images/pokeball.png';
-const fire_path = '../images/pokeball.png';
-const water_path = '../images/pokeball.png';
+const grass_path = '../images/bulbasuar.jpg';
+const fire_path = '../images/charmander.jpg';
+const water_path = '../images/squirtle.jpg';
+const pokeball_path = '../images/pokeball.png'; 
 
 const textBox = document.getElementById('pokemon_info');
 textBox.hidden = true;  
@@ -18,45 +19,52 @@ no_button.hidden = true;
 
 let currentChoice;
 
+const pokemon = [bulbasuar, charmander, squirtle]; 
+
+
+
 
 
 
 const openPokeball = (e)=>{
     if(e.target.id === 'grass'){
-        bulbasuar.src = '../images/bulbasuar.jpg';
-        textBox.innerHTML = "Bulbasuar: the 'Seed Pokemon'";
-        textBox.hidden = false; 
-    }
-    else if(e.target.id === 'fire'){
-        charmander.src = '../images/charmander.jpg';
-        textBox.innerHTML = "Charmander: the 'Lizard Pokemon'";
-        textBox.hidden = false; 
-
-    }
-    else{
-        squirtle.src = '../images/squirtle.jpg';
-        textBox.innerHTML = "Squirtle: the 'Tiny Turtle Pokemon'"; 
-        textBox.hidden = false; 
-    }
-}
-
-const closePokeball = (e)=>{
-    if(e.target.id === 'grass'){
         bulbasuar.src = grass_path;
-        textBox.hidden = true;
+        textBox.innerHTML = "Bulbasuar: the 'Seed Pokemon'";
+        textBox.style.color = 'green'; 
+        textBox.hidden = false; 
     }
     else if(e.target.id === 'fire'){
         charmander.src = fire_path;
-        textBox.hidden = true;
+        textBox.innerHTML = "Charmander: the 'Lizard Pokemon'";
+        textBox.style.color = 'red';
+        textBox.hidden = false; 
 
     }
     else{
         squirtle.src = water_path;
+        textBox.innerHTML = "Squirtle: the 'Tiny Turtle Pokemon'";
+        textBox.style.color = 'blue';  
+        textBox.hidden = false; 
+    }
+}
+
+const closePokeball = (e)=>{            
+    if(e.target.id === 'grass'){
+        bulbasuar.src = pokeball_path;
+        textBox.hidden = true;
+    }
+    else if(e.target.id === 'fire'){
+        charmander.src = pokeball_path;
+        textBox.hidden = true;
+
+    }
+    else{
+        squirtle.src = pokeball_path;
         textBox.hidden = true; 
     }
 }
 
-const choose_prompt = (e)=>{
+const choose_prompt = (e)=>{           //Ask the user to confirm their choice using a yes and no button
 
     let name; 
     currentChoice = e.target.id; 
@@ -72,39 +80,62 @@ const choose_prompt = (e)=>{
     textBox.innerHTML = `Are you sure you want to choose ${name}?`; 
     yes_button.hidden = false;
     no_button.hidden = false; 
-    e.target.removeEventListener('mouseleave',closePokeball); 
+
+    pokemon.forEach((pokemon)=>{
+        pokemon.removeEventListener('mouseleave',closePokeball);
+        pokemon.removeEventListener('mouseover', openPokeball);
+    }); 
+     
 
     
 }
 
 const handleClick = (e)=>{
-    if(e.target.innerHTML === 'Yes'){
+    if(e.target.innerHTML === 'Yes'){     //if user presses yes, present them with their pokemon starter!
         yes_button.hidden = true; 
         no_button.hidden = true;
         if(currentChoice === 'grass' ){
-            bulbasuar.src = '../images/bulbasuar.jpg';
+            bulbasuar.src = grass_path;
             charmander.hidden = true; 
             squirtle.hidden = true;
-            textBox.innerHTML = 'Congragulations with your Bulbasuar!'; 
+            textBox.innerHTML = 'Congragulations with your Bulbasuar!';
+            textBox.style.color = 'green'; 
+
         }
         else if(currentChoice === 'fire'){
-            charmander.src = '../images/charmander.jpg';
+            charmander.src = fire_path;
             bulbasuar.hidden = true;
             squirtle.hidden = true; 
             textBox.innerHTML = 'Congragulations with your Charmander!'; 
+            textBox.style.color = 'red';
         }
         else{
-            squirtle.src = '../images/squirtle.jpg';
+            squirtle.src = water_path;
             bulbasuar.hidden = true;
             charmander.hidden = true; 
             textBox.innerHTML = 'Congragulations with your Squirtle!';
+            textBox.style.color = 'blue';
         }
     }
-    else{
+    else{                                //if user pressses no button, reset images back to pokeball and attach event listeners
         yes_button.hidden = true; 
         no_button.hidden = true;
-        e.target.addEventListener('mouseleave',closePokeball);  
+
+        if(currentChoice === 'grass'){
+            bulbasuar.src = pokeball_path; 
+        }
+        else if(currentChoice === 'fire'){
+            charmander.src = pokeball_path;
+        }
+        else{
+            squirtle.src = pokeball_path; 
+        }
+        pokemon.forEach((pokemon)=>{
+            pokemon.addEventListener('mouseleave',closePokeball);
+            pokemon.addEventListener('mouseover', openPokeball);
+        });
         currentChoice = "";
+        textBox.hidden = true; 
         
     }
 
@@ -113,14 +144,15 @@ const handleClick = (e)=>{
 }
 
 
+//attach event listeners to objects. When user hovers over a pokeball, it will show the pokemon inside
 
-bulbasuar.onmouseover = openPokeball;
+bulbasuar.addEventListener('mouseover', openPokeball); 
 bulbasuar.addEventListener('mouseleave',closePokeball); 
 bulbasuar.onclick = choose_prompt; 
-charmander.onmouseover = openPokeball; 
+charmander.addEventListener('mouseover',openPokeball); 
 charmander.addEventListener('mouseleave',closePokeball);
 charmander.onclick = choose_prompt;
-squirtle.onmouseover = openPokeball; 
+squirtle.addEventListener('mouseover',openPokeball); 
 squirtle.addEventListener('mouseleave',closePokeball); 
 squirtle.onclick = choose_prompt; 
 yes_button.onclick = handleClick;
