@@ -45,8 +45,19 @@ body{
 
 }
 
+.confirm{
+
+    height: 20px; 
+    width: 50px; 
+    background-color: white;
+    color: black; 
+    position: relative; 
+    top: 80%; 
+}
+
 
 h1{
     background-color: rgb(253, 175, 58);
     color: white;
 }
+
