@@ -161,6 +161,18 @@ const reset_sim =(e)=>{
 
 }
 
+const changeBackgroundColor = ()=>{
+    let num1 = Math.floor(Math.random()*256); 
+    let num2 = Math.floor(Math.random()*256); 
+    let num3 = Math.floor(Math.random()*256); 
+
+    document.querySelector('h1').style.backgroundColor = `rgb(${num1},${num2},${num3})`; 
+    document.getElementById('lab').style.borderColor = `rgb(${num1},${num2},${num3})`;
+
+}
+
+let a = setInterval(changeBackgroundColor,5000);
+
 document.onkeydown = reset_sim; 
 
 //attach event listeners to objects. When user hovers over a pokeball, it will show the pokemon inside
