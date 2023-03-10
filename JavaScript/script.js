@@ -139,10 +139,29 @@ const handleClick = (e)=>{
         
     }
 
-
-    
 }
 
+
+
+//function to reset simulation
+const reset_sim =(e)=>{
+    if(e.key === 'r'){
+        
+        textBox.hidden = true; 
+        yes_button.hidden = true;
+        no_button.hidden = true;
+        pokemon.forEach((pokemon)=>{
+        pokemon.addEventListener('mouseleave',closePokeball);
+        pokemon.addEventListener('mouseover', openPokeball);
+        pokemon.src =pokeball_path;
+        pokemon.hidden = false;
+    });     
+    }
+    
+
+}
+
+document.onkeydown = reset_sim; 
 
 //attach event listeners to objects. When user hovers over a pokeball, it will show the pokemon inside
 
