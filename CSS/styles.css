@@ -13,6 +13,13 @@ body{
     display:block;
     position: absolute;
     margin: auto;
+    margin: 1em;
+    padding-left: 1em;
+    padding-right: 1em; 
+    border-color: lightgrey;
+    border-width: 0.5cm;
+    border-style: solid;
+    
 
 
     
@@ -61,5 +68,6 @@ body{
 h1{
     background-color: rgb(253, 175, 58);
     color: white;
+    text-align:left;
 }
 
